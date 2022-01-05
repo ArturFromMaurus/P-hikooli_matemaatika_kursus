@@ -1,1 +1,1 @@
-# P-hikooli_matemaatika_kursus
+# P6hikooli_matemaatika_kursus
