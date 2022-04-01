@@ -130,3 +130,13 @@ function create_TEXT(){
   yl_text.style("font-size","20px");
   yl_text.position(20,5);
 }
+
+
+function keyPressed() {
+  if (keyCode === ENTER){
+    Kontroll();
+  } else if (keyCode===32) {
+    Reset();
+  }
+}
+
