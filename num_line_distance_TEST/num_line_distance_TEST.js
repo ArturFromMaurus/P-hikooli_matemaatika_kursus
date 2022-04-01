@@ -118,3 +118,15 @@ function create_TEXT(){
   vastus_text=createP("Vastus:");
   vastus_text.position(150,155);
 }
+
+// ENTERit vajutades kontrollib sisestatud vastust.
+// Tühikut vajutades genereerib uue ülesande.
+
+function keyPressed() {
+  if (keyCode === ENTER){
+    Kontroll();
+  } else if (keyCode===32) {
+    Reset();
+  }
+}
+
