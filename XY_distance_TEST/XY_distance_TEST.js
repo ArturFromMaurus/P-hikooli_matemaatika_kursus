@@ -80,9 +80,14 @@ function create_Points(){
   fill(255,204,0);
   circle(round(yl_X1_teisendatud/12.5)*12.5, round(yl_Y1_teisendatud/12.5)*12.5, 10);
   circle(round(yl_X2_teisendatud/12.5)*12.5, round(yl_Y2_teisendatud/12.5)*12.5, 10);
-  
   pop();
-  
+  push();
+  fill(0);
+  stroke(255);
+  strokeWeight(3);
+  text("A",round(yl_X1_teisendatud/12.5)*12.5-5, round(yl_Y1_teisendatud/12.5)*12.5-10);
+  text("B",round(yl_X2_teisendatud/12.5)*12.5-5, round(yl_Y2_teisendatud/12.5)*12.5-10);
+  pop();
   
 }
 
