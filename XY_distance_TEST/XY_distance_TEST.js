@@ -16,6 +16,7 @@ function setup() {
 
 
 function draw() {
+  clear();
   background(255);
   XYplane(jaotiste_arv, 0.25, 2); //parameetriks on [jaotiste_arv(teljel), tausta_jaotise_paksus, telje_jaotiste_paksus]
   create_Points();
