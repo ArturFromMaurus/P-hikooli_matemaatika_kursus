@@ -187,8 +187,10 @@ function Kontroll(){
   
   if (INPUT_X1.value()=="" || INPUT_X2.value()=="" || INPUT_Y1.value()==""|| INPUT_Y2.value()==""){
     result_text.html("Tabel on tühi!");
+    condition_for_finishing_table=false;
   } else if (INPUT_X1.value() == INPUT_X2.value() || INPUT_X1.value() > INPUT_X2.value()) {
-    result_text.html("X-ide rida peab tabelis olema kasvamisjärjekorras!")
+    result_text.html("X-ide rida peab tabelis olema kasvamisjärjekorras!");
+    condition_for_finishing_table=false;
   }
   else if (INPUT_X1.value() < INPUT_X2.value() ) {
     func_Y_väärtus_1=tous_K * (INPUT_X1.value()) +vabaliige_B;
@@ -198,6 +200,7 @@ function Kontroll(){
         condition_for_finishing_table=true;
   } else {
         result_text.html("Väärtustetabel on valesti arvutatud.")
+        condition_for_finishing_table=false;
   }
   }
   
@@ -210,6 +213,7 @@ function Kontroll(){
     condition_for_finishing_point_A=true;
       } else {
         p1_text.html("Punkti A asukoht ei sobi.");
+        condition_for_finishing_point_A=false;
       }
   
   // PUNKT B
@@ -218,6 +222,7 @@ function Kontroll(){
       condition_for_finishing_point_B=true;
       } else {
         p2_text.html("Punkti B asukoht ei sobi.");
+        condition_for_finishing_point_B=false;
       }
 
   
