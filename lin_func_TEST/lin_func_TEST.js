@@ -21,6 +21,9 @@ function draw() {
   XYplane(jaotiste_arv, 0.25, 2); //parameetriks on [jaotiste_arv(teljel), tausta_jaotise_paksus, telje_jaotiste_paksus]
   create_a_Point();
   create_TABLE();
+  graafik(xmin,xmax, jaotiste_arv);
+  mouse_Hover()
+  
   KONTROLL_NUPP.mousePressed(Kontroll);
   RESET_NUPP.mousePressed(Reset);
 }
@@ -165,15 +168,17 @@ function Write_texts(){
   yl_text.position(35,(height-300)+5);
   
   result_text=createP("");
-  result_text.position(35,(height-300)+55);
+  result_text.position(55,(height-300)+174);
   
   
   p1_text=createP("");
-  p1_text.position(280,(height-300)+200)
+  p1_text.position(55,(height-300)+193);
   
   p2_text=createP("");
-  p2_text.position(35,(height-300)+250)
+  p2_text.position(55,(height-300)+213);
   
+  current_state_text=createP("Praegune seis:<br><br> 1) <br> 2) <br> 3) ")
+  current_state_text.position(35,(height-300)+140);
 }
 
 function Kontroll(){
@@ -190,6 +195,7 @@ function Kontroll(){
     func_Y_väärtus_2=tous_K * (INPUT_X2.value()) +vabaliige_B;
     if (INPUT_Y1.value() == func_Y_väärtus_1 && INPUT_Y2.value() == func_Y_väärtus_2){
         result_text.html("Väärtustetabel on ÕIGESTI arvutatud!")
+        condition_for_finishing_table=true;
   } else {
         result_text.html("Väärtustetabel on valesti arvutatud.")
   }
@@ -201,21 +207,28 @@ function Kontroll(){
   // PUNKT A
   if ( ((round(first_point_X/12.5)*12.5)-250)/25==round((INPUT_X1.value()*2 )/2 ) && -1*((round(first_point_Y/12.5)*12.5)-250)/25 == (round((tous_K*INPUT_X1.value()+vabaliige_B)*2)/2)    ) {
     p1_text.html("Punkt A on korras!");
+    condition_for_finishing_point_A=true;
       } else {
-        p1_text.html("Punkti B asukoht ei sobi.<br> Y1_canvas "+ str(((round(first_point_Y/12.5)*12.5)-250)/25)+"<br>Y1_numeric"+str((round((tous_K*INPUT_X1.value()+vabaliige_B)*2)/2))+"<br>X1_canvas"+str(((round(first_point_X/12.5)*12.5)-250)/25)+"<br>X1_numeric"+str(  round(INPUT_X1.value()*2 )/2)  );
+        p1_text.html("Punkti A asukoht ei sobi.");
       }
   
   // PUNKT B
     if ( (((round(second_point_X/12.5)*12.5)-250)/25) == round(INPUT_X2.value()*2 )/2  && -1*((round(second_point_Y/12.5)*12.5)-250)/25 == (round((tous_K*INPUT_X2.value()+vabaliige_B)*2)/2)) {
     p2_text.html("Punkt B on korras!");
+      condition_for_finishing_point_B=true;
       } else {
-        p2_text.html("Punkti B asukoht ei sobi.<br> Y2_canvas "+ str(((round(second_point_Y/12.5)*12.5)-250)/25)+"<br>Y2_numeric"+str((round((tous_K*INPUT_X2.value()+vabaliige_B)*2)/2))+"<br>X2_canvas"+str(((round(second_point_X/12.5)*12.5)-250)/25)+"<br>X2_numeric"+str(  round(INPUT_X2.value()*2 )/2)  );
+        p2_text.html("Punkti B asukoht ei sobi.");
       }
+
   
 }
 
 
 function Reset(){
+  condition_for_finishing_table=false;
+  condition_for_finishing_point_A=false;
+  condition_for_finishing_point_B=false;
+  
   
   points_on_plot=0;
   first_point_X = -10;
@@ -258,4 +271,52 @@ function Reset(){
   INPUT_Y2.size(59,17)
   INPUT_Y2.position(132,(height-300)+126);
   
+}
+
+function graafik(xmin,xmax, jaotiste_arv) {
+  
+    if (condition_for_finishing_point_A == true && condition_for_finishing_point_B == true && condition_for_finishing_table==true ) {
+  //----- Määramispiirkond X -----
+  var i;
+  var j;
+   for (i = xmin , j = 0; i <=xmax ; i = i+0.1, j=j+1  ) {
+     X[j]=i;
+     Y[j]=tous_K*X[j]+vabaliige_B; //----- Muutumispiirkond Y -----
+   }
+  
+  for (var k=0; k<=X.length; k=k+1) {
+    if (X[k]*(width/jaotiste_arv)+width/2 >= 0 && X[k]*(width/jaotiste_arv)+width/2 <= width && Y[k]*((height-300)/jaotiste_arv)*(-1)+(height-300)/2 >=0 && Y[k]*((height-300)/jaotiste_arv)*(-1)+(height-300)/2 <= (height-300)  ){
+    push();
+    fill(255,0,255);
+    circle(X[k]*(width/jaotiste_arv)+width/2 , Y[k]*((height-300)/jaotiste_arv)*(-1)+(height-300)/2,0);
+   pop();
+      if (k>=1) {
+      stroke(0, 140, 205);
+      strokeWeight(2);
+      line(X[k-1]*(width/jaotiste_arv)+width/2, Y[k-1]*((height-300)/jaotiste_arv)*(-1)+(height-300)/2, X[k]*(width/jaotiste_arv)+width/2, Y[k]*((height-300)/jaotiste_arv)*(-1)+(height-300)/2);
+  }
+    
+  } 
+    }
+    }
+}
+
+function mouse_Hover(){
+  
+  if (mouseX >=0 && mouseX<= width && mouseY>=0 && mouseY<=height-300){
+  hover_X=(round(mouseX/12.5)*12.5-250)/25;
+  hover_Y=-1*(round(mouseY/12.5)*12.5-250)/25;
+  }
+  
+  push();
+  strokeWeight(0);
+  fill(0,120,225,80);
+  rect(width-90, 10, 70,50,15);
+  pop();
+  
+  push();
+  strokeWeight(0);
+  text("X: "+ hover_X, width-75, 30);
+  text("Y: "+ hover_Y, width-75, 50);
+  pop();
 }
