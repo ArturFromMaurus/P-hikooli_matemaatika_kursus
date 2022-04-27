@@ -7,7 +7,7 @@ function setup() {
 
 function draw() {
   clear();
-  background(55);
+  background(0);
   line_y();
   line_x();
 }
@@ -21,7 +21,7 @@ function line_y() {
   
   strokeWeight(0);
   stroke(0);
-  fill(255,204,0);
+  fill(255,180,0);
   rect(x1_coord,60, width, 5);
   fill(255);
   textSize(17);
@@ -37,7 +37,7 @@ function line_x() {
   
   strokeWeight(0);
   stroke(0);
-  fill(255,124,0);
+  fill(120,0,200);
   rect((width-(width-x2_coord)*5) , 100, width*5 , 5);
   
   if (x2_coord<(4*width/5)) {
